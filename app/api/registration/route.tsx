@@ -81,7 +81,7 @@ const mailOptions = {
 
     // Fetch all registrations for the Excel report
     //const allRegistrations = await prisma.registration.findMany();
-    if (faculte == null) {
+    if (faculte != null) {
       const auth = new google.auth.GoogleAuth({
         credentials: {
           client_email: process.env.GOOGLE_CLIENT_EMAIL,
