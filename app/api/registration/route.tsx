@@ -17,16 +17,18 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+
 // Named export for POST method
 export async function POST(req: NextRequest) {
+  
   const body = await req.json();
-  const { nom, prenom, email, Tele, vous , faculte , organisme , recherche, source } = body;
+  const { nom , prenom, email, Tele, vous , faculte , organisme , recherche, source } = body;
 
   try {
     // Create user in the database
     const registration = await prisma.registration.create({
       data: {
-      nom  ,
+      nom ,
       prenom,
       email,
       Tele,
@@ -81,7 +83,7 @@ const mailOptions = {
 
     // Fetch all registrations for the Excel report
     //const allRegistrations = await prisma.registration.findMany();
-    if (faculte != null) {
+    if (vous ==="etudiant" || vous ==="Enseignant" ) {
       const auth = new google.auth.GoogleAuth({
         credentials: {
           client_email: process.env.GOOGLE_CLIENT_EMAIL,
@@ -109,7 +111,7 @@ const mailOptions = {
       });
 
 
-    } else {
+    } else{
       const auth = new google.auth.GoogleAuth({
         credentials: {
           client_email: process.env.GOOGLE_CLIENT_EMAIL,
